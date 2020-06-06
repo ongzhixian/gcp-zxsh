@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Other files that should not be checked in
+app-secrets.json
+app-credentials.json
+ako.py
+
+# Let's try stopping cmd and use PowerShell Core wherever possible
+*.cmd
