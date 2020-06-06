@@ -18,6 +18,11 @@
 
 app-secrets.json
 app-credentials.json
+ako.py
+
+# Let's try stopping cmd and use PowerShell Core wherever possible
+*.cmd
+
 
 # Python pycache:
 __pycache__/
