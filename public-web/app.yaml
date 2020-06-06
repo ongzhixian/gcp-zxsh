@@ -2,7 +2,7 @@ runtime: python37
 
 # service: default # ZX: if no "service" attribute, default service name is "default"
 # ZX: Explicitly name service as zxsh
-service: zxsh
+# service: zxsh
 
 # The version does not seem to work well in yaml. 
 # It seems that it neeeds to be specify via gcloud deploy
