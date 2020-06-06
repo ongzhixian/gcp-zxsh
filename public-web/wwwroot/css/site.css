@@ -32,6 +32,15 @@ body, p {
     background: var(--hex5-color);
 }
 
+.pure-menu-link {
+    color: var(--hex4-color);
+}
+
+.pure-menu-link:hover {
+    color: var(--hex3-color);
+    background-color: transparent;
+}
+
 /* .pure-menu-active>.pure-menu-link, .pure-menu-link:focus, .pure-menu-link:hover */
 .pure-menu-heading.pure-menu-link {
     color: var(--hex4-color);
@@ -85,6 +94,10 @@ body, p {
     /* opacity: 0.8; */
 }
 
+.splash .pure-button.pure-button-primary {
+    background-color: var(--hex5-color);
+    color: var(--hex4-color);
+}
 
 /*
  * -- CONTENT STYLES --
