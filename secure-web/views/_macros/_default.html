@@ -1,0 +1,30 @@
+{#  PLACEHOLDER 
+    The purpoes of this file is to define macros used in _default layout.
+    _default layout is meant for use with pages that are accessed by public 
+    ie. Users who have yet to be authenticated with application.
+#}
+
+{% macro page_nav_header(view_id, sub_title) %}
+{% 
+    set menu_items = [
+        { 'href' : "/",         'text' : "Home", 'view_id' : 'pages.site.webroot_get'},
+        { 'href' : "/about",    'text' : "About us" },
+        { 'href' : "/contact",  'text' : "Contact us" },
+        { 'href' : "#",         'text' : "Link 3" },
+        { 'href' : "#",         'text' : "Link 4" },
+        ]
+%}
+
+<nav>
+    <ul>
+        <li><a class="brand" href="/">Tagged Event Attendance</a></li>
+        {% for item in menu_items %}
+        <li><a href="{{item.href}}">{{item.text}}</a></li>
+        {%- endfor %}
+    </ul>
+
+    <ul class="action">
+        <li><a href="/login">log in</a></li>
+    </ul>
+</nav>
+{% endmacro %}

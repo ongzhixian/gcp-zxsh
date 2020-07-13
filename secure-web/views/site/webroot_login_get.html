@@ -1,0 +1,44 @@
+{% extends "_layouts/_default.html" %}
+
+{% block title %} home {% endblock %} 
+
+{% block linktags %}
+<meta name="description" content="hci cloud" /> 
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <!-- <h2>Login</h2> -->
+
+    <form class="pure-form pure-form-stacked" enctype="application/x-www-form-urlencoded" method="POST">
+        <fieldset>
+            <legend>Log in</legend>
+            <label for="stacked-email">Email</label>
+            <input type="email" id="stacked-email" placeholder="Email" name="input_email" />
+            <span class="pure-form-message">This is a required field.</span>
+            <label for="stacked-password">Password</label>
+            <input type="password" id="stacked-password" placeholder="Password" name="input_password" />
+            <label for="stacked-remember" class="pure-checkbox" >
+            <input type="checkbox" id="stacked-remember" name="input_remember" /> Remember me</label>
+            <button type="submit" class="pure-button pure-button-primary">Log in</button>
+        </fieldset>
+    </form>
+
+</main>
+
+<footer>
+    
+</footer>
+{% endblock %}
+
+
+{% block scripts %}
+
+<script type="text/javascript">
+(function() {
+    "use strict";
+}());
+</script>
+
+{% endblock %}
