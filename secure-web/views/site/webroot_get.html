@@ -8,9 +8,10 @@
 
 {% block content %}
 
+{% if is_auth %}
 <main>
     <h2>
-        Home
+        Content for authenticated users
     </h2>
 
     <p>
@@ -25,6 +26,34 @@
         Some content 
     </p>
 </main>
+{% else %}
+<main>
+
+    <div style="width: 40em; margin: 0 auto; border: .67em darkgreen double; padding: 1em;">
+
+        <h2 style="text-align: center;">Notice</h2>
+    
+        <ol>
+            <li>IT IS AN OFFENSE TO CONTINUE WITHOUT PROPER AUTHORIZATION.
+            </li>
+            <li>This system is restricted to authorized users.<br />
+                If you are unauthorized, terminate access now. <br />
+                </li>
+        </ol>
+    
+        <p>
+            If you are sure that you are suppose to access this system, click on 
+            <a class="pure-button pure-button-primary" href="/login">log in</a> to proceed.
+        </p>
+
+        
+    </div>
+
+
+</main>
+{% endif %}
+
+
 
 <footer>
     

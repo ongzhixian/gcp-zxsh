@@ -30,6 +30,10 @@ def get_model(cookie_json=None):
     context['view_module'] = module_name
     context['view_package'] = package_name
     context['view_id'] = "{0}.{1}".format(module_name, caller_name)
+    if request.cookies.get(app_settings["application"]["app_token"]) is None:
+        context['is_auth'] = False
+    else:
+        context['is_auth'] = True
 
     # context['auth_cookie'] = request.cookies.get(appconfig["application"]["auth_cookie_name"])
     # context['current_datetime'] = datetime.now()
@@ -81,8 +85,9 @@ def require_authentication(fn):
             
             tokens = plain_text.split("|")
             expiry_date = datetime.strptime(tokens[2], "%Y%m%d")
-            if datetime.utcnow() <= expiry_date:
+            if datetime.utcnow() > expiry_date:
                 #expired
+                logging.info("Expired {0} vs {1}".format(datetime.utcnow(), expiry_date))
                 return redirect("/login?from={0}".format(request.path))
 
             # claims = google.oauth2.id_token.verify_firebase_token(id_token, firebase_request_adapter)

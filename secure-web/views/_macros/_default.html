@@ -4,7 +4,7 @@
     ie. Users who have yet to be authenticated with application.
 #}
 
-{% macro page_nav_header(view_id, sub_title) %}
+{% macro page_nav_header(view_id, is_auth, sub_title) %}
 {% 
     set menu_items = [
         { 'href' : "/",         'text' : "Home", 'view_id' : 'pages.site.webroot_get'},
@@ -24,7 +24,11 @@
     </ul>
 
     <ul class="action">
+        {% if is_auth %}
+        <li><a href="/logout">log out</a></li>
+        {% else %}
         <li><a href="/login">log in</a></li>
+        {% endif %}
     </ul>
 </nav>
 {% endmacro %}

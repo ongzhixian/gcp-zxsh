@@ -65,8 +65,11 @@ def webroot_login_post():
     # Username|CreatedDate
     username = form_username.strip()
     start_date = datetime.utcnow()
-    expiry_date = start_date + timedelta(days=1) 
+    expiry_date = start_date + timedelta(days=1)
 
+    # TODO: Some code to authenticate user
+
+    view_model["is_auth"] = True
     cookie_text = "{0}|{1}|{2}".format(form_username, start_date.strftime("%Y%m%d"), expiry_date.strftime("%Y%m%d"))
     crypto_struct = {
         'key' : app_settings['application']['aes_key_hex'],
@@ -81,6 +84,17 @@ def webroot_login_post():
         # Default 
         resp = make_response(view(view_model, view_path="site/webroot_get.html"))
 
-    resp.set_cookie(app_settings['application']['app_token'], cipher_text)
+    resp.set_cookie(app_settings['application']['app_token'], cipher_text, expires=expiry_date)
+    
     return resp
 
+
+
+@app.route('/logout')
+def webroot_logout_get():
+    logging.info("In webroot_logout_get()")
+    view_model = get_model()
+    view_model["is_auth"] = False
+    resp = make_response(view(view_model, view_path="site/webroot_logout_get.html"))
+    resp.set_cookie(app_settings['application']['app_token'], '', expires=0)
+    return resp
