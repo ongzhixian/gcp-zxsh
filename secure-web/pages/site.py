@@ -24,7 +24,6 @@ def webroot_get():
     return view(view_model)
 
 @app.route('/about')
-@require_authentication
 def webroot_about_get():
     logging.info("In webroot_about_get()")
     view_model = get_model()
@@ -34,9 +33,7 @@ def webroot_about_get():
 def webroot_contact_get():
     logging.info("In webroot_contact_get()")
     view_model = get_model()
-    return view(view_model)
-
-    
+    return view(view_model)    
 
 @app.route('/login')
 def webroot_login_get():
@@ -98,3 +95,12 @@ def webroot_logout_get():
     resp = make_response(view(view_model, view_path="site/webroot_logout_get.html"))
     resp.set_cookie(app_settings['application']['app_token'], '', expires=0)
     return resp
+
+
+
+# @app.route('/about')
+# @require_authentication
+# def webroot_about_get():
+#     logging.info("In webroot_about_get()")
+#     view_model = get_model()
+#     return view(view_model)
