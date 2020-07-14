@@ -1,0 +1,8 @@
+dispatch:
+  # Maps zxshell.emptool.com to default service
+  - url: "zxshell.emptool.com/*"
+    service: default
+
+  # Maps hci.emptool.com to hci service
+  - url: "hci.emptool.com/*"
+    service: hci
