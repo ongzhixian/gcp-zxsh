@@ -9,11 +9,14 @@
 # Modules and functions import statements
 ################################################################################
 
+import enum
 import logging
 from enum import Enum
 from queue import Queue
 from datetime import datetime
 from google.cloud import datastore
+
+from modules.security import sha256_as_hex
 
 ################################################################################
 # Module variables
@@ -22,6 +25,10 @@ from google.cloud import datastore
 db = datastore.Client(namespace="zxsh")
 entity_key_queue = Queue()
 entity_kind = 'user'
+
+class UserStatus(enum.Enum):
+   UnvettedAccount = 0
+   VettedAccount = 1
 
 ################################################################################
 # Define functions
@@ -41,6 +48,7 @@ def get_new_entity_key(key_count=10):
 
 def add_user(email, password):
     logging.info("add_user [{0}], [{1}]".format(email, password))
+    password_hash = sha256_as_hex(password)
 
     try:
         op_datetime = datetime.utcnow()
@@ -63,7 +71,8 @@ def add_user(email, password):
                     'email'         : email,
                     'password_hash' : password,
                     'cre_dt'        : op_datetime,
-                    'status'        : 0
+                    'verify'        : False,
+                    'status'        : UserStatus.UnvettedAccount
                 })
                 logging.info("Putting entity")
                 db.put(ent)

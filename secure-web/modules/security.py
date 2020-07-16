@@ -6,6 +6,8 @@ import logging
 import binascii
 
 from Crypto.Cipher import AES
+from Crypto.Hash import HMAC, SHA256
+from Crypto.Protocol.KDF import PBKDF2
 from Crypto import Random
 
 ################################################################################
@@ -90,8 +92,55 @@ def aes_sample_usage():
     print(plain_text)
 
 
-# TODO: Implement KDF
-# https://www.dlitz.net/software/pycrypto/api/current/Crypto.Protocol.KDF-module.html
+########################################
+# Hash functions
+########################################
+
+def sha256_as_hex(plain_text):
+    return SHA256.new(data=plain_text.encode("UTF8")).hexdigest()
+
+def sha256_sample_usage():
+    return sha256_as_hex("Hello world")
+
+
+def hmacsha256_as_hex(key, plain_text):
+    h = HMAC.new(key.encode("UTF8"), digestmod = SHA256)
+    h.update(plain_text.encode("UTF8"))
+    return h.hexdigest()
+
+
+def verify_hmacsha256_from_hex(key, plain_text, hex_mac):
+    h = HMAC.new(key.encode("UTF8"), digestmod = SHA256)
+    h.update(plain_text.encode("UTF8"))
+    try:
+        h.hexverify(hex_mac)
+        return True
+    except ValueError:
+        return False
+
+def hmacsha256_sample_usage():
+    secret_key = "globalpass"
+    message = "Hello world"
+    hex_mac = hmacsha256_as_hex(secret_key, message)
+    is_valid = verify_hmacsha256_from_hex(secret_key, message, hex_mac)
+
+
+########################################
+# PBKDF functions
+########################################
+
+def derive_32bytes_as_hex(password, salt_hex_string, count=1000000):
+    salt_bytes = hex_string_to_byte_string(salt_hex_string)
+    encoded_password = password.encode("UTF8")
+    return PBKDF2(encoded_password, salt_bytes, 32, count = count, hmac_hash_module = SHA256)
+
+
+def derive_32bytes_sample():
+    salt_hex_string = "480b41eec90e92aabe6ec159768d7d88fa64eb35a91c7e5c39b89be53eab0d06"
+    count = 2000000
+    key = derive_32bytes_as_hex("hello world", salt_hex_string, count)
+    hex_key = byte_string_to_hex_string(key)
+    print("hex_key {0}".format(hex_key))
 
 ################################################################################
 # Variables dependent on Application basic functions
