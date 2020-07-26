@@ -19,6 +19,7 @@
 app-secrets.json
 app-credentials.json
 ako.py
+GOOGLE_APPLICATION_CREDENTIALS.json
 
 # Let's try stopping cmd and use PowerShell Core wherever possible
 *.cmd

@@ -1,0 +1,48 @@
+{% import "./_macros/_default.html" as macros %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} Home {% endblock %} - new</title>
+
+    <!-- Fonts if (any) -->
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="//fonts.googleapis.com/css?family=Open+Sans|Dosis:400,800&display=swap" /> -->
+    {% if app_settings["IS_HOSTED"] %}
+    <!-- Use CDN -->
+    <link rel="stylesheet" type="text/css" media="screen" href="//unpkg.com/spectre.css/dist/spectre.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="//unpkg.com/spectre.css/dist/spectre-exp.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="//unpkg.com/spectre.css/dist/spectre-icons.min.css" />
+    {% else %}
+    <!-- Use local copies -->
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/spectre/spectre.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/spectre/spectre-exp.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/spectre/spectre-icons.css" />
+    {% endif %}
+    <!-- CSS that is only available on our website-->
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/site.css" />
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    {% block linktags %}{% endblock %}
+</head>
+<body>
+
+<!-- 
+<header style="display: block;">
+    {{ macros.page_nav_header(view_id) }}
+</header> 
+-->
+{{ macros.page_nav_header2(view_id, valid_app_token, username) }}
+    
+{% block content %}
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+{% endblock %}
+<!-- End Document
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
